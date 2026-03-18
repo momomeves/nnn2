@@ -1,0 +1,10 @@
+{
+    "display_name": "Плавающий переводчик",
+    "version": "1.0.0",
+    "author": "Your Name",
+    "js": "index.js",
+    "css": "style.css",
+    "loading_order": 10,
+    "description": "Отдельное плавающее окно с автоматическим переводом через Google Translate",
+    "settings": true
+}

@@ -1,0 +1,106 @@
+<div id="floating_translator_settings">
+    <div class="inline-drawer">
+        <div class="inline-drawer-toggle inline-drawer-header">
+            <b>Плавающий переводчик</b>
+            <div class="inline-drawer-icon fa-solid fa-circle-chevron-down"></div>
+        </div>
+        <div class="inline-drawer-content">
+            <div class="flex-container flexGap5">
+                <label for="translator_enabled">Включить:</label>
+                <input id="translator_enabled" type="checkbox" />
+            </div>
+            
+            <div class="flex-container flexGap5">
+                <label for="translator_provider">Провайдер перевода:</label>
+                <select id="translator_provider" class="text_pole">
+                    <option value="google">Google Translate (бесплатно)</option>
+                    <option value="deepl">DeepL (требуется API ключ)</option>
+                    <option value="yandex">Yandex Translate (требуется API ключ)</option>
+                </select>
+            </div>
+            
+            <div id="translator_api_key_container" style="display: none;">
+                <div class="flex-container flexGap5">
+                    <label for="translator_api_key">API ключ:</label>
+                    <input id="translator_api_key" type="password" class="text_pole" />
+                </div>
+                <small>Для DeepL: получите ключ на deepl.com/pro</small>
+            </div>
+            
+            <div class="flex-container flexGap5">
+                <label for="translator_target_lang">Язык перевода по умолчанию:</label>
+                <select id="translator_target_lang" class="text_pole">
+                    <option value="ru">Русский</option>
+                    <option value="en">Английский</option>
+                    <option value="de">Немецкий</option>
+                    <option value="fr">Французский</option>
+                    <option value="es">Испанский</option>
+                    <option value="it">Итальянский</option>
+                    <option value="ja">Японский</option>
+                    <option value="ko">Корейский</option>
+                    <option value="zh">Китайский</option>
+                </select>
+            </div>
+            
+            <div class="flex-container flexGap5">
+                <label for="translator_auto_translate">Автоперевод при вводе:</label>
+                <input id="translator_auto_translate" type="checkbox" checked />
+            </div>
+            
+            <div class="flex-container flexGap5">
+                <label for="translator_window_position">Позиция окна:</label>
+                <select id="translator_window_position" class="text_pole">
+                    <option value="bottom-right">Справа внизу</option>
+                    <option value="bottom-left">Слева внизу</option>
+                    <option value="top-right">Справа вверху</option>
+                    <option value="top-left">Слева вверху</option>
+                </select>
+            </div>
+            
+            <div class="flex-container flexGap5">
+                <label for="translator_window_width">Ширина окна (px):</label>
+                <input id="translator_window_width" type="number" class="text_pole" value="400" min="200" max="800" />
+            </div>
+            
+            <div class="flex-container flexGap5">
+                <label for="translator_window_height">Высота окна (px):</label>
+                <input id="translator_window_height" type="number" class="text_pole" value="300" min="200" max="600" />
+            </div>
+            
+            <button id="translator_save_settings" class="menu_button">Сохранить настройки</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Загрузка настроек в UI
+    jQuery('#floating_translator_settings').on('click', '#translator_save_settings', function() {
+        const settings = {
+            enabled: $('#translator_enabled').prop('checked'),
+            provider: $('#translator_provider').val(),
+            targetLanguage: $('#translator_target_lang').val(),
+            autoTranslate: $('#translator_auto_translate').prop('checked'),
+            windowPosition: $('#translator_window_position').val(),
+            windowWidth: parseInt($('#translator_window_width').val()),
+            windowHeight: parseInt($('#translator_window_height').val()),
+            apiKey: $('#translator_api_key').val()
+        };
+        
+        // Сохраняем через контекст SillyTavern
+        const context = SillyTavern.getContext();
+        context.extensionSettings.floating_translator = settings;
+        context.saveSettingsDebounced();
+        
+        toastr.success('Настройки сохранены');
+    });
+    
+    // Показываем/скрываем поле API ключа в зависимости от провайдера
+    jQuery('#translator_provider').on('change', function() {
+        const provider = $(this).val();
+        if (provider === 'google') {
+            $('#translator_api_key_container').hide();
+        } else {
+            $('#translator_api_key_container').show();
+        }
+    });
+</script>

@@ -1,0 +1,196 @@
+/* Плавающее окно переводчика */
+.translator-window {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(145deg, #2a2a3a 0%, #1a1a2a 100%);
+    border: 1px solid #4a4a6a;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+    color: #e0e0e0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    z-index: 9999;
+    resize: both;
+    overflow: hidden;
+    min-width: 300px;
+    min-height: 250px;
+    backdrop-filter: blur(10px);
+    transition: box-shadow 0.2s;
+}
+
+.translator-window:hover {
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.7);
+}
+
+/* Заголовок окна */
+.translator-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    background: linear-gradient(90deg, #3a3a5a 0%, #2a2a4a 100%);
+    border-bottom: 1px solid #4a4a6a;
+    border-radius: 11px 11px 0 0;
+    cursor: grab;
+    user-select: none;
+}
+
+.translator-header:active {
+    cursor: grabbing;
+}
+
+.translator-title {
+    font-weight: 600;
+    font-size: 14px;
+    color: #fff;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.translator-controls {
+    display: flex;
+    gap: 8px;
+}
+
+.translator-controls button {
+    background: none;
+    border: none;
+    color: #aaa;
+    font-size: 16px;
+    cursor: pointer;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    transition: all 0.2s;
+}
+
+.translator-controls button:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+}
+
+/* Контент */
+.translator-content {
+    display: flex;
+    flex-direction: column;
+    padding: 12px;
+    gap: 12px;
+    flex: 1;
+    overflow: hidden;
+}
+
+.translator-input-area,
+.translator-output-area {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    flex: 1;
+}
+
+.translator-textarea {
+    width: 100%;
+    height: 100px;
+    padding: 8px 12px;
+    background: rgba(20, 20, 30, 0.8);
+    border: 1px solid #4a4a6a;
+    border-radius: 8px;
+    color: #fff;
+    font-family: inherit;
+    font-size: 14px;
+    line-height: 1.5;
+    resize: none;
+    transition: border-color 0.2s;
+}
+
+.translator-textarea:focus {
+    outline: none;
+    border-color: #7a7aff;
+    box-shadow: 0 0 0 2px rgba(122, 122, 255, 0.2);
+}
+
+.translator-textarea[readonly] {
+    background: rgba(30, 30, 40, 0.8);
+    color: #c0c0c0;
+}
+
+.translator-lang-select {
+    padding: 6px 10px;
+    background: rgba(30, 30, 40, 0.8);
+    border: 1px solid #4a4a6a;
+    border-radius: 6px;
+    color: #fff;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.translator-lang-select:hover {
+    background: rgba(40, 40, 50, 0.8);
+    border-color: #6a6a8a;
+}
+
+.translator-lang-select:focus {
+    outline: none;
+    border-color: #7a7aff;
+}
+
+.translator-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    padding-top: 8px;
+    border-top: 1px solid #3a3a5a;
+}
+
+.translator-button {
+    padding: 6px 12px;
+    background: linear-gradient(145deg, #3a3a5a, #2a2a4a);
+    border: 1px solid #5a5a7a;
+    border-radius: 6px;
+    color: #fff;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.translator-button:hover {
+    background: linear-gradient(145deg, #4a4a6a, #3a3a5a);
+    border-color: #7a7aff;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(122, 122, 255, 0.3);
+}
+
+.translator-button:active {
+    transform: translateY(0);
+}
+
+/* Анимации */
+@keyframes translatorFadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.translator-window {
+    animation: translatorFadeIn 0.2s ease-out;
+}
+
+/* Кнопка в меню расширений */
+#floating_translator_button {
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+#floating_translator_button:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
